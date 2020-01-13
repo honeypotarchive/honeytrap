@@ -2,7 +2,7 @@ AUTOMAKE_OPTIONS = foreign no-dependencies
 
 AM_CFLAGS=-Wall -Werror
 
-INCLUDES = -I../
+AM_CPPFLAGS= -I../
 
 SUBDIRS=
 
@@ -111,6 +111,12 @@ if BUILD_LOGATTACKER_PLUGIN
 lib_LTLIBRARIES += htm_logAttacker.la
 htm_logAttacker_la = htm_logAttacker.c
 htm_logAttacker_la_LDFLAGS = -module -no-undefined -avoid-version
+endif
+
+if BUILD_LOGJSON_PLUGIN
+lib_LTLIBRARIES += htm_logJSON.la
+htm_logJSON_la = htm_logJSON.c
+htm_logJSON_la_LDFLAGS = -module -no-undefined -avoid-version -ljson-c
 endif
 
 

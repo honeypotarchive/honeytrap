@@ -1,4 +1,4 @@
-![honeytrap logo](https://github.com/tillmannw/honeytrap/blob/master/doc/logo.png)
+![honeytrap logo](https://https://raw.githubusercontent.com/honeypotarchive/honeytrap/main/doc/logo.png)
 
 # honeytrap
 
@@ -12,17 +12,44 @@ A module API provides an easy way to write custom extensions that are dynamicall
 # Installation
 Installing honeytrap is fairly straight forward. Simply run the following commands in the source tree root directory:
 ```
-./configure  --with-stream-mon=<type>
-make
-sudo make install
+apt-get install -y autoconf \
+                       build-essential \
+                       git \
+                       iptables \
+                       libcap2 \
+                       libcap2-bin \
+                       libnetfilter-queue1 \
+                       libnetfilter-queue-dev \
+                       libjson-c-dev \
+                       libtool \
+                       libpq5 \
+                       libpq-dev \
+                       netbase \
+                       procps \
+                       wget && \
+
+autoreconf -vfi && \
+    ./configure \
+      --with-stream-mon=nfq \
+      --with-logattacker \
+      --with-logjson \
+      --prefix=/opt/honeytrap && \
+    make && \
+    make install && \
+    make clean && \
 ```
+
 The parameter `--with-stream-mon` specifies how honeytrap should look for incoming connection attempts. On Linux, the preferred choicde is `--with-stream-mon=nfq`, which instructs honeytrap to capture packets using the `iptables NFQUEUE` feature. When using this feature, an iptables rule like the following puts incoming TCP-SYN segments in a queue where they can be picked up by honeytrap:
 ```
 sudo iptables -A INPUT -p tcp --syn --m state --state NEW --dport 445 -j NFQUEUE
 ```
 Make sure not to queue packets to other critical services. Please refer to the INSTALL file and to the output of `./configure --help` for further information.
 
+# Running
+
+`/opt/honeytrap/sbin/honeytrap -D -C honeytrap.conf -P honeytrap.pid -t 5 -u honeytrap -g honeytrap`
+
 # An Example Attack
 Here's a captured attack by old-school IRC bot spreading via the all time classic MS04-011 LSASS exploit and a rudimentary FTP service built into the malware.
 
-![example attack](https://github.com/tillmannw/honeytrap/blob/master/doc/example.png)
+![example attack](https://raw.githubusercontent.com/honeypotarchive/honeytrap/main/doc/example.png)
