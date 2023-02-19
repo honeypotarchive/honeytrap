@@ -1,4 +1,4 @@
-![honeytrap logo](https://https://raw.githubusercontent.com/honeypotarchive/honeytrap/main/doc/logo.png)
+![honeytrap logo](https://raw.githubusercontent.com/honeypotarchive/honeytrap/master/doc/logo.png)
 
 # honeytrap
 
@@ -52,4 +52,4 @@ Make sure not to queue packets to other critical services. Please refer to the I
 # An Example Attack
 Here's a captured attack by old-school IRC bot spreading via the all time classic MS04-011 LSASS exploit and a rudimentary FTP service built into the malware.
 
-![example attack](https://raw.githubusercontent.com/honeypotarchive/honeytrap/main/doc/example.png)
+![example attack](https://raw.githubusercontent.com/honeypotarchive/honeytrap/master/doc/example.png)
